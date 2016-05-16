@@ -17,9 +17,11 @@ if (!file_exists(ROOT . '/database.ini')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Robinzhao\Console\Command\TableCommand;
+use Robinzhao\Console\Command\ShowCommand;
+use Robinzhao\Console\Command\FillCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-$application->add(new TableCommand());
+$application->add(new ShowCommand());
+$application->add(new FillCommand());
 $application->run();

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TableCommand extends Command
+class FillCommand extends Command
 {
 
     protected function configure()
@@ -31,7 +31,7 @@ class TableCommand extends Command
 
         $name = $input->getArgument('name');
         
-        //var_dump($name);
+        var_dump($name);
 
 
         
