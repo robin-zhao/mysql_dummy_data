@@ -1,0 +1,10 @@
+{
+    "name": "robinzhao/mysql_dummy_data",
+    "authors": [
+        {
+            "name": "Robin Zhao",
+            "email": "boborabit@qq.com"
+        }
+    ],
+    "require": {}
+}
