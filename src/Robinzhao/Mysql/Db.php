@@ -18,7 +18,6 @@ class Db
      * @var \PDO
      */
     protected static $pdo;
-    
     protected static $prepare = [];
 
     public static function pdo()
@@ -75,7 +74,7 @@ class Db
         }
         return $definition;
     }
-    
+
     /**
      * Insert a row into table.
      * 
@@ -84,33 +83,28 @@ class Db
      */
     public function insert($table, array $row)
     {
-        
+
         if (!isset(static::$prepare[$table])) {
-            
             $columns = implode('`,`', array_keys($row));
-            static::$prepare[$table] = 
-                "insert into `$table` (`$columns`) values ";
-        } else {
-            
-            $values = implode("','", $row);
-            static::$prepare[$table] .= " ('$values'),";
-            
-            if (strlen(static::$prepare[$table]) > 10000) {
-                $this->flush();
-            }
+            static::$prepare[$table] = "insert into `$table` (`$columns`) values ";
         }
-        
-    }
-    
-    protected function flush()
-    {
-        foreach (static::$prepare as $sql) {
-            $sql = rtrim($sql,',');
-            static::$pdo->exec($sql);
+
+        $values = implode("','", $row);
+        static::$prepare[$table] .= " ('$values'),";
+
+        if (strlen(static::$prepare[$table]) > 10000) {
+            $this->flush();
         }
-        static::$prepare = [];
     }
 
+    protected function flush()
+    {
+        foreach (static::$prepare as $table => $sql) {
+            $sql = rtrim($sql, ',');
+            static::$pdo->exec($sql);
+            unset(static::$prepare[$table]);
+        }
+    }
 
     public function __destruct()
     {
