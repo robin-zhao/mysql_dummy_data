@@ -6,5 +6,7 @@
             "email": "boborabit@qq.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/console": "^3.0"
+    }
 }
