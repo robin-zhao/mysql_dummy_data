@@ -8,7 +8,7 @@
  */
 
 define('ROOT', __DIR__);
-define('START_TIME', time());
+define('START_TIME', microtime(true));
 define('START_MEMORY', memory_get_peak_usage());
 
 if (!file_exists(ROOT . '/database.ini')) {

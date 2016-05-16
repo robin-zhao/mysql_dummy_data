@@ -3,6 +3,7 @@
 namespace Robinzhao\Console\Command;
 
 use Robinzhao\Mysql\Db;
+use Robinzhao\Mysql\Field\Field;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,20 +31,18 @@ class FillCommand extends Command
         $db = new Db();
 
         for ($i = 0; $i < $number; $i++) {
+            $row = [];
             foreach ($db->showTable($name) as $object) {
-                
-                $field = \Robinzhao\Mysql\Field\Field::factory($object->Field, $object->Type);
-                
-                
-                $output->writeln('Field: ' . str_pad($object->Field, 15, ' ')
-                    . 'Type: ' . $object->Type . ' ' . $field->generateRandom());
-                
-                
-                
-                
-                
+
+                $row[$object->Field] = Field::factory($object->Field, $object->Type)
+                    ->generateRandom();
             }
+            $db->insert($name, $row);
         }
+
+        var_dump('Memory: ' . memory_get_peak_usage());
+        var_dump('Start Memory: ' . START_MEMORY);
+        var_dump('Used time: ' . (microtime(true) - START_TIME));
     }
 
 }

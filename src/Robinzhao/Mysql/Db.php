@@ -13,7 +13,13 @@ use const ROOT;
 class Db
 {
 
+    /**
+     *
+     * @var \PDO
+     */
     protected static $pdo;
+    
+    protected static $prepare = [];
 
     public static function pdo()
     {
@@ -34,6 +40,9 @@ class Db
         static::pdo();
     }
 
+    /**
+     * Show all available tables.
+     */
     public function getTables()
     {
         $result = static::pdo()->query("show tables");
@@ -42,9 +51,17 @@ class Db
         }
     }
 
+    /**
+     * Show Table definition.
+     * 
+     * @staticvar array $definition
+     * @param string $table
+     * @return array
+     * @throws \Exception
+     */
     public function showTable($table)
     {
-        static $definition = array();
+        static $definition = [];
 
         if (empty($definition)) {
             /* @var $result \PDOStatement */
@@ -57,6 +74,47 @@ class Db
             }
         }
         return $definition;
+    }
+    
+    /**
+     * Insert a row into table.
+     * 
+     * @param string $table
+     * @param array $row
+     */
+    public function insert($table, array $row)
+    {
+        
+        if (!isset(static::$prepare[$table])) {
+            
+            $columns = implode('`,`', array_keys($row));
+            static::$prepare[$table] = 
+                "insert into `$table` (`$columns`) values ";
+        } else {
+            
+            $values = implode("','", $row);
+            static::$prepare[$table] .= " ('$values'),";
+            
+            if (strlen(static::$prepare[$table]) > 10000) {
+                $this->flush();
+            }
+        }
+        
+    }
+    
+    protected function flush()
+    {
+        foreach (static::$prepare as $sql) {
+            $sql = rtrim($sql,',');
+            static::$pdo->exec($sql);
+        }
+        static::$prepare = [];
+    }
+
+
+    public function __destruct()
+    {
+        $this->flush();
     }
 
 }
