@@ -21,6 +21,8 @@ abstract class Field
                 return new Varchar($name, $type);
             case 'char':
                 return new Char($name, $type);
+            case 'text':
+                return new Text($name, $type);
         }
         throw  new \Exception("Not supported: " . $types[0]);
     }
