@@ -42,4 +42,21 @@ class Db
         }
     }
 
+    public function showTable($table)
+    {
+        static $definition = array();
+
+        if (empty($definition)) {
+            /* @var $result \PDOStatement */
+            $result = static::pdo()->query('DESC ' . $table);
+            if (!$result) {
+                throw new \Exception("No table ${table} found!");
+            }
+            while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+                $definition[] = $row;
+            }
+        }
+        return $definition;
+    }
+
 }

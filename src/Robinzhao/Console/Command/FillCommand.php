@@ -17,24 +17,33 @@ class FillCommand extends Command
             ->setName('table:fill')
             ->setDescription('Fill a table with dummy rows.')
             ->addArgument(
-                'name', InputArgument::OPTIONAL, 'The table name.'
-        );
+                'name', InputArgument::REQUIRED, 'The table name.'
+            )
+            ->addArgument('number', InputArgument::OPTIONAL, 'Number of rows,default 100.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $db = new Db();
-        foreach ($db->getTables() as $row)
-        {
-            $output->writeln($row);
-        }
-
         $name = $input->getArgument('name');
-        
-        var_dump($name);
+        $number = $input->getArgument('number') ? : 100;
 
+        $db = new Db();
 
-        
+        for ($i = 0; $i < $number; $i++) {
+            foreach ($db->showTable($name) as $object) {
+                
+                $field = \Robinzhao\Mysql\Field\Field::factory($object->Field, $object->Type);
+                
+                
+                $output->writeln('Field: ' . str_pad($object->Field, 15, ' ')
+                    . 'Type: ' . $object->Type . ' ' . $field->generateRandom());
+                
+                
+                
+                
+                
+            }
+        }
     }
 
 }
