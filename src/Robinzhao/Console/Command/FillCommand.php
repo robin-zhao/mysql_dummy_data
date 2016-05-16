@@ -34,6 +34,10 @@ class FillCommand extends Command
             $row = [];
             foreach ($db->showTable($name) as $object) {
 
+                if ($object->Key == 'PRI') {
+                    continue;
+                }
+                
                 $row[$object->Field] = Field::factory($object->Field, $object->Type)
                     ->generateRandom();
             }
