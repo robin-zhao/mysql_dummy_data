@@ -12,19 +12,13 @@ abstract class Field
     public static function factory($name, $type)
     {
         $types = explode('(', $type);
-        switch($types[0]) {
-            case 'int':
-                return new Int($name, $type);
-            case 'varchar':
-                return new Varchar($name, $type);
-            case 'char':
-                return new Char($name, $type);
-            case 'text':
-                return new Text($name, $type);
+        $class = __NAMESPACE__ . '\\' . ucfirst($types[0]);
+        if (class_exists($class)) {
+            return new $class($name, $type);
+        } else {
+            throw  new \Exception("Not supported: " . $types[0]);
         }
-        throw  new \Exception("Not supported: " . $types[0]);
     }
-    
     
     /**
      * 
