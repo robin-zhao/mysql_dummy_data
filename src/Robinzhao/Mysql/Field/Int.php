@@ -3,8 +3,6 @@
 namespace Robinzhao\Mysql\Field;
 
 /**
- * Description of Int
- *
  * @author Robin Zhao <rzhao@defymedia.com>
  */
 class Int extends Field

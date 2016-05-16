@@ -1,8 +1,6 @@
 <?php
 namespace Robinzhao\Mysql\Field;
 /**
- * Description of Field
- *
  * @author Robin Zhao <rzhao@defymedia.com>
  */
 abstract class Field
