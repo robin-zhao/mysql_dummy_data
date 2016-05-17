@@ -22,8 +22,6 @@ A command line tool to generate rows of dummy data for a specific table.
 
 ## TODO support other data types
 
-    1) ENUM
+    1) BLOB
 
-    2) BLOB
-
-    3) DATE, DATETIME, TIMESTAMP, TIME, YEAR
+    2) DATE, DATETIME, TIMESTAMP, TIME, YEAR
