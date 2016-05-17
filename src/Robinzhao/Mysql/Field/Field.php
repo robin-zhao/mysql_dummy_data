@@ -46,6 +46,10 @@ abstract class Field
     
     public function getTypeSize()
     {
+        if ($this->typeSize > 1) {
+            return rand(1, $this->typeSize);
+        }
+        
         return $this->typeSize;
     }
     
