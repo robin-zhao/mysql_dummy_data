@@ -29,7 +29,7 @@ A command line tool to generate rows of dummy data for a specific table.
         string(20) "Start Memory: 234168"
         string(26) "Used time: 74.769246101379"
 
-
+```
 mysql> select * from example1 limit 100;
 +-----+--------------+------+--------------------------------------------------+---------------------+---------+
 | id  | name         | age  | description                                      | created             | salary  |
@@ -44,7 +44,7 @@ mysql> select * from example1 limit 100;
 |   8 | hkAhC        |  433 | TOCHzou                                          | 1974-07-09 05:52:23 | 7537.39 |
 |   9 | bLqs         |    4 | jyagQnvqjlcskjsNNHWpLyYXuglTVjuoPWqpfhMdsFLuonEc | 1971-07-18 05:21:45 | 1376.77 |
 |  10 | HUnkfG       |   87 | XdxAbPmJVDnMgliigPYKcPgERoiivauBzklcArMGCoCaR    | 2020-06-06 17:43:12 | 6445.01 |
-
+```
 
 ## TODO support other data types
 
